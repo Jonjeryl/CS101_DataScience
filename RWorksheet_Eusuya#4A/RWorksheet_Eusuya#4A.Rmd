@@ -6,3 +6,61 @@ output: pdf_document
 ---
 
 # 1
+# A
+```{r}
+data <- data.frame(
+  ShoeSize = c(6.5,9.0,8.5,8.5,10.5,7.0,9.5,9.0,13.0,7.5,10.5,8.5,12.0,10.5,13.0,11.5,8.5,5.0,10.0,6.5,7.5,8.5,10.5,8.5,10.5,11.0,9.0,13.0),
+  
+  Height = c(66.0,68.0,64.5,65.0,70.0,64.0,70.0,71.0,72.0,64.0,74.5,67.0,71.0,71.0,77.0,72.0,59.0,62.0,72.0,66.0,64.0,67.0,73.0,69.0,72.0,70.0,69.0,70.0),
+  
+  Gender = c("F","F","F","F","M","F","F","F","M","F","M","F","M","M","M","M","F","F","M","F","F","M","M","F","M","M","M","M")
+)
+data
+```
+# B
+```{r}
+male_sub <- subset(data, Gender == "M", select = c(ShoeSize, Height))
+female_sub <- subset(data, Gender == "F", select = c(ShoeSize, Height))
+male_sub
+female_sub
+```
+#C
+```{r}
+shoe_mean <- mean(data$ShoeSize)
+height_mean <- mean(data$Height)
+shoe_mean
+height_mean
+```
+# D Is there a relationship between shoe size and height? Why?
+# No, because the shoe size does not affect the height
+
+# 2
+```{r}
+months_vector <- c("March","April","January","November","January","September","October","September","November","August","January","November","November","February","May","August","July","December","August","August","September","November","February",
+"April")
+factor_months_vector <- factor(months)
+factor_months_vector
+```
+# 3
+```{r}
+summary(months_vector)
+summary(factor_months_vector)
+```
+# Interpret the results of both vectors. Are they both equally useful in this case?
+# Yes, because they show the lenght, data type and contents of both vectors.
+
+# 4
+```{r}
+Direction <- c("East","West","North")
+Frequency <- c(1, 4, 3)
+
+data2 <- cbind(Direction,Frequency)
+data2
+new_data2 <- factor(data2, levels = c("East","West","North"))
+new_data2
+```
+# 5
+```{r}
+march <- read.csv("/cloud/project/RWorksheet_Eusuya#4A/import_march.csv")
+march
+```
