@@ -1,0 +1,8 @@
+---
+title: "RWorksheet_Eusuya#4A"
+author: "Jonjeyl M. Eusuya"
+date: "2024-10-11"
+output: pdf_document
+---
+
+# 1
