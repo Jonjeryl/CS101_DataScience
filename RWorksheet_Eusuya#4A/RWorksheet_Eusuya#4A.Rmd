@@ -2,7 +2,7 @@
 title: "RWorksheet_Eusuya#4A"
 author: "Jonjeyl M. Eusuya"
 date: "2024-10-11"
-output: pdf_document
+output: "pdf_document"
 ---
 
 # 1
@@ -38,7 +38,7 @@ height_mean
 ```{r}
 months_vector <- c("March","April","January","November","January","September","October","September","November","August","January","November","November","February","May","August","July","December","August","August","September","November","February",
 "April")
-factor_months_vector <- factor(months)
+factor_months_vector <- factor(months_vector)
 factor_months_vector
 ```
 # 3
@@ -64,3 +64,100 @@ new_data2
 march <- read.csv("/cloud/project/RWorksheet_Eusuya#4A/import_march.csv")
 march
 ```
+# 6
+```{r}
+num <- as.numeric(readline(prompt="Enter a number from 1 to 50: "))
+
+if(!is.na(num) && num == 20){
+  print("TRUE")
+}else {
+  print("Invalid Input")
+}
+if(!is.na(num) && num>=1 && num<=50){
+  num
+}else{
+  print("The number selected is beyond the range 1 to 50")
+}
+```
+# 7
+```{r}
+price <- as.numeric(readline(prompt="Enter Price: "))
+min_bills <- function(price) {
+  bills_used <- 0
+  
+  if (!is.na(price) && price >= 1000) {
+    bills_used <- bills_used + price %/% 1000
+    price <- price %% 1000
+  }
+  if (!is.na(price) && price >= 500) {
+    bills_used <- bills_used + price %/% 500
+    price <- price %% 500
+  }
+  if (!is.na(price) && price >= 200) {
+    bills_used <- bills_used + price %/% 200
+    price <- price %% 200
+  }
+  if (!is.na(price) && price >= 100) {
+    bills_used <- bills_used + price %/% 100
+    price <- price %% 100
+  }
+  if (!is.na(price) && price >= 50) {
+    bills_used <- bills_used + price %/% 50
+    price <- price %% 50
+  }
+  return(bills_used)
+}
+min_bills(price)
+```
+# 8
+# A
+```{r}
+data <- data.frame(
+  Name = c("Annie", "Thea", "Steve", "Hanna"),
+  Grade1 = c(85, 65, 75, 95),
+  Grade2 = c(65, 75, 55, 75),
+  Grade3 = c(85, 90, 80, 100),
+  Grade4 = c(100, 90, 85, 90)
+)
+data
+```
+# B
+```{r}
+avg_scores <- rowSums(data[,-1]) / (ncol(data) - 1)
+
+if (any(avg_scores > 90)) {
+  high_avg_names <- data$Name[avg_scores > 90]
+  high_avg_scores <- avg_scores[avg_scores > 90]
+  cat(paste(high_avg_names, "'s average grade this semester is ", high_avg_scores, ".\n", sep = ""))
+} else {
+  cat("No student's average grade is over 90.\n")
+}
+```
+# C
+```{r}
+test_averages <- colSums(data[,-1]) / nrow(data)
+
+if (any(test_averages < 80)) {
+  difficult_tests <- which(test_averages < 80)
+  cat(paste("The", difficult_tests, "th test was difficult.\n"))
+} else {
+  cat("All tests had average scores of 80 or above.\n")
+}
+```
+# D
+```{r}
+highest_scores <- apply(data[,-1], 1, function(x) sort(x, decreasing = TRUE)[1])
+
+if (any(highest_scores > 90)) {
+  high_score_names <- data$Name[highest_scores > 90]
+  high_scores <- highest_scores[highest_scores > 90]
+  cat(paste(high_score_names, "'s highest grade this semester is ", high_scores, ".\n"))
+} else {
+  cat("No student's highest grade exceeded 90.\n")
+}
+```
+
+
+
+
+
