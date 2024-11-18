@@ -1,0 +1,44 @@
+---
+title: "RWorksheet_Eusuya#4C"
+author: "Jonjeryl M. Eusuya"
+date: "2024-11-04"
+output: pdf_document
+---
+
+# 1
+# A
+```{r}
+mpgdata <- read.csv("/cloud/project/RWorksheet_Eusuya#4C/mpg.csv")
+mpgdata
+```
+# B - Which variables from mpg dataset are categorical?
+# Datasets that are categorical in mpg are: manufacturer, model, trans, drv, fl and class.
+
+# C - Which are continuous variables?
+# Datasets that are continuous in mpg are: displ, year, cyl, cty and hwy
+
+# 2
+# A
+```{r}
+gro_data <- 
+gro_data
+```
+# 2.2
+# A
+```{r}
+ggplot(mpgdata, aes(model, manufacturer)) + geom_point()
+```
+# The ggplot shows the manufacturer and the model of the car they made.
+
+# B - For you, is it useful? If not, how could you modify the data to make it more informative?
+# No the data is not useful. I would make the model names clearer to make the ggplot useful.
+
+# 3
+```{r}
+ggplot(mpgdata, aes(model c(1:20), c(year 1:20)) + geom_point()
+```
+
+
+
+
+
