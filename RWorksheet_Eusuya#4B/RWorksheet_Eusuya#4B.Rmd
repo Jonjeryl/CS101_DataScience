@@ -1,0 +1,72 @@
+---
+title: "RWorksheet_Eusuya#4B"
+author: "Jonjeyl M. Eusuya"
+date: "2024-11-17"
+output: pdf_document
+---
+
+# 1
+```{r}
+vectorA <- c(1, 2, 3, 4, 5)
+matrixA <- matrix(0, nrow = 5, ncol = 5)
+
+for(i in 1:5){
+  for(j in 1:5){
+    matrixA[i, j] <- abs(vectorA[i] - j)
+  }
+}
+matrixA
+```
+# 2
+```{r}
+n <- 5
+
+for (i in 1:n) {
+  row <- ""
+  for (j in 1:(i - 1)) {
+    row <- paste0(row, "*")
+  }
+  cat(row, "\n")
+}
+
+```
+# 3
+```{r}
+start_num <- as.integer(readline(prompt = "Enter the starting number of the Fibonacci sequence: "))
+
+if (is.na(start_num) || start_num <= 0) {
+  cat("Please enter a positive integer.\n")
+} else {
+  a <- 0
+  b <- 1
+  
+  repeat {
+    next_num <- a + b
+    
+    a <- b
+    b <- next_num
+    
+    if (next_num < start_num) {
+      next
+    }
+    
+    cat(next_num, " ")
+  
+    if (next_num > 500) {
+      break
+    }
+  }
+}
+
+```
+
+
+
+
+
+
+
+
+
+
+
