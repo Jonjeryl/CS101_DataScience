@@ -20,9 +20,58 @@ mpgdata
 # 2
 # A
 ```{r}
-gro_data <- 
-gro_data
+library(dplyr)
+library(ggplot2)
+
+
+manu_count <- mpg %>%
+  group_by(manufacturer) %>%
+  summarise(model_count = n_distinct(model)) %>%
+  arrange(desc(model_count))
+
+top_manu <- manu_count[1, ]
+
+model_var <- mpg %>%
+  group_by(model) %>%
+  summarise(variation_count = n()) %>%
+  arrange(desc(variation_count))
+
+top_model <- model_var[1, ]
+
+top_manu
+top_model
 ```
+# A
+```{r}
+  mile <- mpg %>%
+  group_by(manufacturer) %>%
+  summarise(unique_models = n_distinct(model)) %>%
+  arrange(desc(unique_models))
+mile
+```
+# B
+```{r}
+library(dplyr)
+barplot(mile$unique_models, 
+        names.arg = mile$manufacturer, 
+        col = "blue",
+        main = "Unique Models per Manufacturer", 
+        xlab = "Manufacturer", 
+        ylab = "Number of Unique Models",
+        las = 2,          
+        cex.names = 0.7)
+```
+```{r}
+library(ggplot2)
+
+ggplot(mile, aes(x = manufacturer, y = unique_models)) +
+  geom_bar(stat = "identity", fill = "blue") +
+  ggtitle("Unique Models per Manufacturer") +
+  xlab("Manufacturer") +
+  ylab("Number of Unique Models") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 10))  
+```
+
 # 2.2
 # A
 ```{r}
@@ -35,10 +84,198 @@ ggplot(mpgdata, aes(model, manufacturer)) + geom_point()
 
 # 3
 ```{r}
-ggplot(mpgdata, aes(model c(1:20), c(year 1:20)) + geom_point()
+library(ggplot2)
+library(dplyr)
+
+mpg_top20 <- mpg %>% head(20)
+
+ggplot(mpg_top20, aes(x = model, y = year)) +
+  geom_point(color = "blue", size = 3) +
+  labs(title = " Model vs Year", 
+       x = "Model", 
+       y = "Year") +
+  theme_minimal()
 ```
+# 4
+```{r}
+library(dplyr)
+library(ggplot2)
 
+cars_per_model <- mpg %>%
+  group_by(model) %>%
+  summarise(car_count = n()) %>%
+  arrange(desc(car_count))
+cars_per_model
+```
+# A
+```{r}
+library(ggplot2)
+library(dplyr)
 
+mpg_top20 <- mpg %>% head(20)
+model_counts <- mpg_top20 %>%
+  group_by(model) %>%
+  summarise(car_count = n()) %>%
+  arrange(desc(car_count))
 
+ggplot(model_counts, aes(x = reorder(model, -car_count), y = car_count, fill = model)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Cars per Model",
+       x = "Car Model", 
+       y = "Number of Cars") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_fill_manual(values = rainbow(nrow(model_counts)))
+```
+# B
+```{r}
+library(ggplot2)
+library(dplyr)
+
+model_counts <- mpg %>%
+  group_by(model) %>%
+  summarise(car_count = n()) %>%
+  arrange(desc(car_count))
+ggplot(model_counts, aes(x = reorder(model, car_count), y = car_count, fill = model)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(title = "Cars per Model", 
+       x = "Car Model", 
+       y = "Number of Cars") +
+  theme_minimal() +
+  theme(legend.position = "none") + 
+  scale_fill_manual(values = rainbow(nrow(model_counts)))
+```
+# 5
+```{r}
+library(ggplot2)
+
+ggplot(mpg, aes(x = cyl, y = displ, color = displ)) +
+  geom_point(size = 3) +
+  labs(title = "Relationship between No. of Cylinders and Engine Displacement",
+       x = "Number of Cylinders",
+       y = "Engine Displacement",
+       color = "Engine Displacement") +
+  theme_minimal()
+```
+# A - How would you describe its relationship?
+# When the number of cylinders increase the engine displacement also increases.
+
+# 6
+```{r}
+library(ggplot2)
+
+ggplot(mpg, aes(x = displ, y = hwy, color = displ)) +
+  geom_point(size = 3, alpha = 0.7) +
+  labs(title = "Relationship between Engine Displacement and Highway Miles per Galon",
+       x = "Engine Displacement",
+       y = "Highway Miles per Gallon",
+       color = "Engine Displacement") +
+  theme_minimal()
+```
+# 6.2
+```{r}
+traffic_data <- read.csv("/cloud/project/RWorksheet_Eusuya#4C/traffic.csv")
+traffic_data
+```
+# A
+```{r}
+observations <- nrow(traffic_data)
+print(paste("Number of observations:", observations))
+
+variables <- colnames(traffic_data)
+print(paste("Variables:", variables))
+```
+# B
+```{r}
+junctions <- split(traffic_data, traffic_data$Junction)
+junctions
+```
+# C
+```{r}
+library(ggplot2)
+library(dplyr)
+
+traffic_data$DateTime <- as.POSIXct(traffic_data$DateTime, format="%Y-%m-%d %H:%M:%S")
+ggplot(traffic_data, aes(x = DateTime, y = Vehicles, color = factor(Junction))) +
+  geom_line() +
+  labs(title = "Traffic Volume",
+       x = "Date and Time",
+       y = "Number of Vehicles",
+       color = "Junction") +
+  theme_minimal() +
+  facet_wrap(~ Junction, scales = "free_y")
+```
+# 7
+```{r}
+library(readxl)
+alexa_data <- read_excel("/cloud/project/RWorksheet_Eusuya#4C/alexa_file.xlsx")
+alexa_data
+```
+# A
+```{r}
+observations2 <- nrow(alexa_data)
+print(paste("Number of observations:", observations2))
+
+variables2 <- colnames(alexa_data)
+print(paste("Variables:", variables2))
+```
+# B
+```{r}
+library(dplyr)
+
+variation_counts <- alexa_data %>%
+  group_by(variation) %>%
+  summarise(total = n())
+print(variation_counts)
+```
+# C
+```{r}
+ggplot(variation_counts, aes(x = reorder(variation, -total), y = total, fill = variation)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Total Of Each Variations",
+       x = "Product Variation",
+       y = "Number of Variation") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  guides(fill = FALSE)
+```
+# D
+```{r}
+alexa_data$date <- as.Date(alexa_data$date)
+
+daily_reviews <- alexa_data %>%
+  group_by(date) %>%
+  summarise(total_verified_reviews = sum(feedback))
+
+ggplot(daily_reviews, aes(x = date, y = total_verified_reviews)) +
+  geom_line(color = "blue") +
+  labs(title = "Number of Verified Reviews",
+       x = "Date",
+       y = "Verified Reviews") +
+  theme_minimal()
+```
+# E
+```{r}
+library(dplyr)
+library(ggplot2)
+
+ratings <- alexa_data %>%
+  group_by(variation) %>%
+  summarise(average_rating = mean(rating, na.rm = TRUE)) %>%
+
+arrange(desc(average_rating))
+ratings
+```
+```{r}
+ggplot(ratings, aes(x = reorder(variation, -average_rating), y = average_rating, fill = variation)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Product Variations and Ratings",
+       x = "Product Variation",
+       y = "Average Rating") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  guides(fill = FALSE)
+```
 
 
